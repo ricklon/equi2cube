@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "equi2cube"
+version = "0.1.0"
+description = ""
+authors = ["Ricklon <rick.rickanderson@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+streamlit = "^1.37.1"
+opencv-python = "^4.10.0.84"
+numpy = "^2.1.0"
+pillow = "^10.4.0"
+
+[tool.poetry.scripts]
+equi2cube = "equi2cube.equi2cube:cli"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
