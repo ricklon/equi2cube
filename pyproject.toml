@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "equi2cube"
-version = "0.2.3"
+version = "0.2.4"
 description = "A tool to convert equirectangular images to cubemap images"
 authors = ["Ricklon <rick.rickanderson@gmail.com>"]
 readme = "README.md"
