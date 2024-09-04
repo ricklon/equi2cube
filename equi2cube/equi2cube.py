@@ -18,13 +18,15 @@ def equirectangular_to_cubemap(equirect_img, face_size, desired_faces=None, debu
         return u * width, v * height
 
     faces = [
-        ('front',  ( 1,  0,  0), ( 0, -1,  0), ( 0,  0, -1), (1, 1)),
-        ('right',  ( 0,  0, -1), ( 0, -1,  0), ( 1,  0,  0), (1, 2)),
-        ('back',   (-1,  0,  0), ( 0, -1,  0), ( 0,  0,  1), (1, 3)),
-        ('left',   ( 0,  0,  1), ( 0, -1,  0), (-1,  0,  0), (1, 0)),
-        ('top',    ( 0,  1,  0), ( 0,  0,  1), ( 1,  0,  0), (0, 1)),
-        ('bottom', ( 0, -1,  0), ( 0,  0, -1), ( 1,  0,  0), (2, 1))
+        ('front',  ( 1,  0,  0), ( 0, -1,  0), ( 0,  0,  1), (1, 1)),  # Front
+        ('right',   ( 0,  0,  1), ( 0, -1,  0), (-1,  0,  0), (1, 0)),  # Left (Swapped)
+        ('back',   (-1,  0,  0), ( 0, -1,  0), ( 0,  0, -1), (1, 3)),  # Back
+        ('left',  ( 0,  0, -1), ( 0, -1,  0), ( 1,  0,  0), (1, 2)),  # Right (Swapped)
+        ('top',    ( 0,  1,  0), ( 0,  0, -1), ( 1,  0,  0), (0, 1)),  # Top
+        ('bottom', ( 0, -1,  0), ( 0,  0, -1), (-1,  0,  0), (2, 1))   # Bottom
     ]
+
+
 
     labeled_faces = []
     for face, forward, up, right, (row, col) in faces:
@@ -71,6 +73,8 @@ def single(input_file, output_dir, face_size, max_size, name, faces, debug):
     
     output_path.mkdir(parents=True, exist_ok=True)
     for face, img in labeled_faces:
+        if img.mode == 'RGBA':
+            img = img.convert('RGB')  # Convert RGBA to RGB
         img.save(output_path / f'{name if name else input_path.stem}_{face}.jpg')
         print(f"Saved face: {name if name else input_path.stem}_{face}.jpg")
 
@@ -112,6 +116,8 @@ def batch(input_dir, output_dir, face_size, max_size, name, faces, debug):
         labeled_faces = equirectangular_to_cubemap(equirect_img, face_size, desired_faces, debug)
         
         for face, img in labeled_faces:
+            if img.mode == 'RGBA':
+                img = img.convert('RGB')  # Convert RGBA to RGB
             img.save(batch_output_folder / f'{name if name else file.stem}_{face}.jpg')
             print(f"Saved face: {name if name else file.stem}_{face}.jpg")
 
