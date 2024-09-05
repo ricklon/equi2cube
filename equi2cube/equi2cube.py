@@ -22,8 +22,9 @@ def equirectangular_to_cubemap(equirect_img, face_size, desired_faces=None, debu
         ('right',   ( 0,  0,  1), ( 0, -1,  0), (-1,  0,  0), (1, 0)),  # Left (Swapped)
         ('back',   (-1,  0,  0), ( 0, -1,  0), ( 0,  0, -1), (1, 3)),  # Back
         ('left',  ( 0,  0, -1), ( 0, -1,  0), ( 1,  0,  0), (1, 2)),  # Right (Swapped)
-        ('top',    ( 0,  1,  0), ( 0,  0, -1), ( 1,  0,  0), (0, 1)),  # Top
-        ('bottom', ( 0, -1,  0), ( 0,  0, -1), (-1,  0,  0), (2, 1))   # Bottom
+        ('top', (0, 1, 0), (-1, 0, 0), (0, 0, 1), (0, 1)),
+        ('bottom', (0, -1, 0), (-1, 0, 0), (0, 0, 1), (2, 1))  # Fixed Bottom
+
     ]
 
 
